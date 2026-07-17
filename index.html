@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CazaImagen — Buscador de imágenes</title>
+<meta name="description" content="Busca y descarga imágenes de todo internet, con fuente y licencia siempre a la vista.">
+<meta name="theme-color" content="#0c1520">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Archivo+Black&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sprocket-strip" aria-hidden="true"></div>
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="brand">
+      <span class="brand-mark">⌖</span>
+      <div class="brand-text">
+        <h1>CAZAIMAGEN</h1>
+        <p class="brand-sub">buscador de imágenes / cada resultado en la mira</p>
+      </div>
+    </div>
+    <button id="settingsBtn" class="icon-btn" title="Ajustes de fuentes de imagen" aria-label="Ajustes">
+      <span>⚙ AJUSTES</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <section class="search-bay">
+    <form id="searchForm" class="search-form" autocomplete="off">
+      <span class="frame-label">buscar/</span>
+      <input id="queryInput" type="text" placeholder="perro corriendo, atardecer en la montaña, arquitectura brutalista…" aria-label="Palabras clave" required>
+      <button type="submit" class="shutter-btn" aria-label="Buscar">
+        <span class="shutter-ring"></span>
+        <span class="shutter-label">DISPARAR</span>
+      </button>
+    </form>
+
+    <div class="filters">
+      <label class="filter">
+        <span>orientación</span>
+        <select id="orientationSel">
+          <option value="">cualquiera</option>
+          <option value="landscape">horizontal</option>
+          <option value="portrait">vertical</option>
+          <option value="square">cuadrada</option>
+        </select>
+      </label>
+      <label class="filter">
+        <span>tipo</span>
+        <select id="typeSel">
+          <option value="">todos</option>
+          <option value="photo">fotografía</option>
+          <option value="illustration">ilustración</option>
+          <option value="vector">vector</option>
+        </select>
+      </label>
+      <label class="filter">
+        <span>fuente</span>
+        <select id="sourceSel">
+          <option value="openverse">Openverse (sin clave)</option>
+          <option value="pixabay">Pixabay (necesita clave)</option>
+        </select>
+      </label>
+      <span id="resultCount" class="result-count"></span>
+    </div>
+  </section>
+
+  <section id="statusBay" class="status-bay" hidden>
+    <p id="statusMsg"></p>
+  </section>
+
+  <section id="grid" class="grid" aria-live="polite"></section>
+
+  <div id="loadMoreWrap" class="load-more-wrap" hidden>
+    <button id="loadMoreBtn" class="frame-btn">+ MÁS CUADROS</button>
+  </div>
+</main>
+
+<footer class="ftr">
+  <p>Cada imagen conserva su fuente y licencia originales. Verifica el uso permitido antes de publicar.</p>
+</footer>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" hidden>
+  <div class="lightbox-inner">
+    <button id="lbClose" class="lb-close" aria-label="Cerrar">✕</button>
+    <div class="lb-media">
+      <img id="lbImg" alt="">
+    </div>
+    <div class="lb-meta">
+      <p class="lb-title" id="lbTitle"></p>
+      <p class="lb-sub" id="lbCredit"></p>
+      <p class="lb-sub" id="lbLicense"></p>
+      <div class="lb-actions">
+        <a id="lbDownload" class="frame-btn" download target="_blank" rel="noopener">↓ DESCARGAR</a>
+        <a id="lbSource" class="frame-btn ghost" target="_blank" rel="noopener">VER FUENTE ↗</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings drawer -->
+<div id="settingsDrawer" class="drawer" hidden>
+  <div class="drawer-inner">
+    <div class="drawer-head">
+      <h2>AJUSTES DE FUENTES</h2>
+      <button id="drawerClose" class="lb-close" aria-label="Cerrar">✕</button>
+    </div>
+    <p class="drawer-note">Openverse funciona sin clave y agrega imágenes de Flickr, Wikimedia Commons, museos y más, todas con licencia abierta. Pixabay requiere una clave gratuita propia para más resultados y fotografía de stock.</p>
+    <label class="drawer-field">
+      <span>Clave de API de Pixabay (opcional)</span>
+      <input id="pixabayKeyInput" type="text" placeholder="pega aquí tu clave gratuita de pixabay.com/api/docs/">
+    </label>
+    <a class="drawer-link" href="https://pixabay.com/api/docs/" target="_blank" rel="noopener">Obtener clave gratuita de Pixabay ↗</a>
+    <button id="saveSettings" class="frame-btn">GUARDAR</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
